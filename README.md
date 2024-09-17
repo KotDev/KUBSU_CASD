@@ -6,3 +6,4 @@
 ## Лабораторные
 
  - [Лабарораторная работа №1](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_1)
+ - [Лабарораторная работа №2](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_2)
