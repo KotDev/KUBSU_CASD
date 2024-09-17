@@ -5,5 +5,9 @@
 
 ## Лабораторные
 
- - [Лабарораторная работа №1](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_1)
- - [Лабарораторная работа №2](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_2)
+ - [Лабарораторная работа №1](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_1) .NET 8
+ - [Лабарораторная работа №2](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_2) .NET 8
+ - [Лабарораторная работа №3](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_3) .NET 4
+
+PS "В конце каждой лабораторной работы указана инструкция запуска, а так же напротив каждой гипперсылки
+    описана версия .NET на котором писалась лабораторная работа. Т.к VSCode не поддерживает .NET 8 для создания WindowsForm"
