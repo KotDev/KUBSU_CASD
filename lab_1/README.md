@@ -35,6 +35,7 @@
 Инициализируем нашь класс вызвав аргумент RunTask1
 
 ```bash
+  using KUBSU_CASD.lab_1; // или же namespace KUBSU_CASD.lab_1;
   class Program
 {
     public static void Main(string[] args)
