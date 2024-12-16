@@ -1,5 +1,7 @@
 bin/
 obj/
+.vscode
+.idea
 lab_1/task-1.txt
 lab_3/input.txt
 lab_3/output.txt
@@ -9,3 +11,10 @@ lab_7/output.txt
 lab_9/task-9.txt
 lab_15/task-15.txt
 lab_15/sorted.txt
+lab_12/log.txt
+lab_19/task-19.txt
+lab_20/task-20.txt
+lab_20/output.txt
+lab_25/task-25.txt
+lab_25/output.txt
+lab_26/task-26.txt
