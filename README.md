@@ -13,6 +13,15 @@
  - [Лабораторная работа №6](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_6) .NET 8
  - [Лабораторная работа №7](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_7) .NET 8
  - [Лабораторная работа №8](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_8) .NET 8
+ - [Лабораторная работа №9](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_9) .NET 8
+ - [Лабораторная работа №10](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_10) .NET 8
+ - [Лабораторная работа №11](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_11) .NET 8
+ - [Лабораторная работа №12](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_12) .NET 8
+ - Лабораторная работа №13 -
+ - [Лабораторная работа №14](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_14) .NET 8
+ - [Лабораторная работа №15](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_15) .NET 8
+ - [Лабораторная работа №16](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_16) .NET 8
+ - [Лабораторная работа №17](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_17) .NET 8
    
 
 PS "В конце каждой лабораторной работы указана инструкция запуска, а так же напротив каждой гипперсылки
