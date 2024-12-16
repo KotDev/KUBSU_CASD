@@ -28,7 +28,7 @@
  - [Лабораторная работа №21](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_21) .NET 8
  - [Лабораторная работа №22](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_22) .NET 8
  - [Лабораторная работа №23](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_23) .NET 8
- - [Лабораторная работа №24] -
+ - Лабораторная работа №24 -
  - [Лабораторная работа №25](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_25) .NET 8
  - [Лабораторная работа №26](https://github.com/KotDev/KUBSU_CASD/tree/main/lab_26) .NET 8
    
