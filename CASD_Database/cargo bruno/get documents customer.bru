@@ -1,0 +1,15 @@
+meta {
+  name: get documents customer
+  type: http
+  seq: 21
+}
+
+get {
+  url: http://0.0.0.0:8000/api/customer/me/documents/
+  body: none
+  auth: inherit
+}
+
+headers {
+  document_id: 958
+}

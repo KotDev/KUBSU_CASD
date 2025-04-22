@@ -1,0 +1,15 @@
+meta {
+  name: get info profile driver
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://0.0.0.0:8000/api/drivers/me/
+  body: none
+  auth: inherit
+}
+
+headers {
+  driver_id: 136
+}

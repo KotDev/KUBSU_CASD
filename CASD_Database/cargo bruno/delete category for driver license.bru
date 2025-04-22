@@ -1,0 +1,16 @@
+meta {
+  name: delete category for driver license
+  type: http
+  seq: 15
+}
+
+delete {
+  url: http://0.0.0.0:8000/api/drivers/me/document/driver-license/delete-category
+  body: none
+  auth: inherit
+}
+
+headers {
+  category_id: 1
+  number_driverlicense: 2222
+}

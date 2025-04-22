@@ -1,0 +1,15 @@
+meta {
+  name: get driver license
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://0.0.0.0:8000/api/drivers/me/document/driver-license
+  body: none
+  auth: inherit
+}
+
+headers {
+  number_driverlicense: 2222
+}

@@ -16,7 +16,7 @@ namespace KUBSU_CASD.lab_6
         {
             this.elementData = new T[10];
             this.elementCount = 0;
-            this.capacityIncrement = 0;
+            this.capacityIncrement = 2;
         }
 
         public MyVector(int initalCapacity, int capacityIncrement)

@@ -1,0 +1,23 @@
+meta {
+  name: update driverlicense
+  type: http
+  seq: 13
+}
+
+put {
+  url: http://0.0.0.0:8000/api/drivers/me/document/driver-license
+  body: json
+  auth: inherit
+}
+
+headers {
+  number_driverlicense: 2222
+}
+
+body:json {
+  {
+    "number_driverlicense": "2222",
+    "seria_driverlicense": "697625",
+    "get_date": "2025-04-21"
+  }
+}

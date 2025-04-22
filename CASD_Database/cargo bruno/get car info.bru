@@ -1,0 +1,15 @@
+meta {
+  name: get car info
+  type: http
+  seq: 11
+}
+
+get {
+  url: http://0.0.0.0:8000/api/driver-car/get
+  body: none
+  auth: inherit
+}
+
+headers {
+  car_id: 1
+}

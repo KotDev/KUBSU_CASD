@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASD - Вход и регистрация</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toggle-switch">
+            <input type="checkbox" id="roleToggle">
+            <label for="roleToggle" class="toggle-label">
+                <span class="toggle-text driver-text">Водитель</span>
+                <span class="toggle-handle"></span>
+                <span class="toggle-text customer-text">Заказчик</span>
+            </label>
+        </div>
+
+        <div id="forms-container">
+            <h1 id="formTitle">Cargo Group</h1>
+
+            <!-- Форма авторизации -->
+            <form id="authForm" class="auth-form">
+                <h2>Авторизация</h2>
+                <div class="form-group">
+                    <input type="number" id="authId" placeholder="Ваш ID" required>
+                </div>
+                <button type="submit" class="submit-btn">Войти</button>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+
+            <!-- Форма регистрации водителя -->
+            <form id="driverForm" class="registration-form">
+                <h2>Регистрация водителя</h2>
+                <div class="form-group">
+                    <input type="text" id="driverName" name="driverName" placeholder="Имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="driverMidName" name="driverMidName" placeholder="Отчество" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="driverLastName" name="driverLastName" placeholder="Фамилия">
+                </div>
+                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+            </form>
+
+            <!-- Форма регистрации заказчика -->
+            <form id="customerForm" class="registration-form">
+                <h2>Регистрация заказчика</h2>
+                <div class="form-group">
+                    <input type="text" id="companyName" name="companyName" placeholder="Название компании" required>
+                </div>
+                <button type="submit" class="submit-btn">Зарегистрироваться</button>
+            </form>
+
+            <button id="loginButton" class="login-btn">Авторизация</button>
+            <button id="registerButton" class="login-btn" style="display: none;">Регистрация</button>
+        </div>
+    </div>
+
+    <div id="backgroundAnimation" class="background-animation"></div>
+
+    <script src="js/register.js"></script>
+</body>
+</html>

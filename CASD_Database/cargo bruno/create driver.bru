@@ -1,0 +1,22 @@
+meta {
+  name: create driver
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://0.0.0.0:8000/api/auth/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "register_driver": {
+      "name": "Иван",
+      "mid_name": "Иванович",
+      "last_name": "Иванов"
+    },
+    "register_customer": null
+  }
+}

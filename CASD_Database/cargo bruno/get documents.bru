@@ -1,0 +1,15 @@
+meta {
+  name: get documents
+  type: http
+  seq: 9
+}
+
+get {
+  url: http://0.0.0.0:8000/api/drivers/me/documents
+  body: none
+  auth: inherit
+}
+
+headers {
+  document_id: 900
+}

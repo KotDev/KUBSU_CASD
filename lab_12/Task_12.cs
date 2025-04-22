@@ -18,6 +18,7 @@ namespace KUBSU_CASD.lab_12
     {
         public static void RunTask12(string[] args)
         {
+            
             Console.Write("Введите N: ");
             string? N = Console.ReadLine();
             Dictionary<Bid, double> dictBind = new Dictionary<Bid, double>();
@@ -43,10 +44,12 @@ namespace KUBSU_CASD.lab_12
                     dictBind[currentBid] = stopwatch.Elapsed.TotalMilliseconds;
                 }
                 stopwatch.Stop();
+                StreamWriter writer = new StreamWriter("lab_12/log.txt");
                 foreach (KeyValuePair<Bid, double> kvp in dictBind)
                 {
-                    Console.WriteLine($"(Номер заявки: {kvp.Key.numberBid}, Приоритет: {kvp.Key.priority}, Номер шага: {kvp.Key.numberStep}) - Время: {kvp.Value} мс");
+                    writer.WriteLine($"(Номер заявки: {kvp.Key.numberBid}, Приоритет: {kvp.Key.priority}, Номер шага: {kvp.Key.numberStep}) - Время: {kvp.Value} мс");
                 }
+                writer.Close();
             }
             catch (Exception)
             {

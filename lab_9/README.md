@@ -49,7 +49,6 @@ b. Список переменных, используемых в выражен
 Для запуска необходимо в файле StartTasks.cs инициализировать класс запускаемой задачи.
 
 
-
 ```bash
   using KUBSU_CASD.lab_9; // или же namespace KUBSU_CASD.lab_9;
   class Program

@@ -1,0 +1,15 @@
+meta {
+  name: get passport driver
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://0.0.0.0:8000/api/drivers/me/document/passport
+  body: none
+  auth: inherit
+}
+
+headers {
+  number_passport: 002704
+}

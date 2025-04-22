@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет водителя | CASD</title>
+    <link rel="stylesheet" href="css/driver.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="driver-theme">
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <h3 id="driverFullName">Загрузка...</h3>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li class="active" data-section="profile"><i class="fas fa-user"></i> Профиль</li>
+                <li data-section="cargo"><i class="fas fa-truck"></i> Мои грузы</li>
+            </ul>
+        </nav>
+        <button id="logoutBtn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+        </button>
+    </div>
+
+    <div class="main-content">
+        <div class="profile-section active" id="profileSection">
+            <h2>Мой профиль</h2>
+
+            <div class="info-card">
+                <h3>Основная информация</h3>
+                <div class="info-row">
+                    <span>ID:</span>
+                    <span id="userId"></span>
+                </div>
+                <div class="info-row">
+                    <span>Имя:</span>
+                    <span id="driverName"></span>
+                </div>
+                <div class="info-row">
+                    <span>Отчество:</span>
+                    <span id="driverMidName"></span>
+                </div>
+                <div class="info-row">
+                    <span>Фамилия:</span>
+                    <span id="driverLastName"></span>
+                </div>
+            </div>
+
+            <div class="documents-container">
+                <div class="document-card" id="passportCard">
+                    <div class="document-header">
+                        <h3>Паспорт</h3>
+                        <button id="createPassportBtn" class="action-btn" style="display: none;">
+                            <i class="fas fa-plus"></i> Создать
+                        </button>
+                    </div>
+                    <div class="document-content" id="passportContent"></div>
+                </div>
+
+                <div class="document-card" id="licenseCard">
+                    <div class="document-header">
+                        <h3>Водительское удостоверение</h3>
+                        <button id="createLicenseBtn" class="action-btn" style="display: none;">
+                            <i class="fas fa-plus"></i> Создать
+                        </button>
+                    </div>
+                    <div class="document-content" id="licenseContent"></div>
+                </div>
+
+                <div class="document-card" id="carCard">
+                    <div class="document-header">
+                        <h3>Автомобиль</h3>
+                        <button id="createCarBtn" class="action-btn" style="display: none;">
+                            <i class="fas fa-plus"></i> Зарегистрировать
+                        </button>
+                    </div>
+                    <div class="document-content" id="carContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cargo-section" id="cargoSection" style="display: none;">
+            <h2>Мои грузы</h2>
+            <div class="cargo-list" id="cargoList">
+                <p>Здесь будут отображаться ваши грузы</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    <div class="modal" id="passportModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Паспортные данные</h3>
+            <form id="passportForm">
+                <div class="form-group">
+                    <label for="passportSerial">Серия:</label>
+                    <input type="text" id="passportSerial" required>
+                </div>
+                <div class="form-group">
+                    <label for="passportNumber">Номер:</label>
+                    <input type="text" id="passportNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="passportIssueDate">Дата выдачи:</label>
+                    <input type="date" id="passportIssueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="passportBirthDate">Дата рождения:</label>
+                    <input type="date" id="passportBirthDate" required>
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="licenseModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Водительское удостоверение</h3>
+            <form id="licenseForm">
+                <div class="form-group">
+                    <label for="licenseSeria">Серия:</label>
+                    <input type="text" id="licenseSeria" required>
+                </div>
+                <div class="form-group">
+                    <label for="licenseNumber">Номер:</label>
+                    <input type="text" id="licenseNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="licenseIssueDate">Дата выдачи:</label>
+                    <input type="date" id="licenseIssueDate" required>
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="carModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Регистрация автомобиля</h3>
+            <form id="carForm">
+                <div class="form-group">
+                    <label for="carBrand">Марка:</label>
+                    <input type="text" id="carBrand" required>
+                </div>
+                <div class="form-group">
+                    <label for="carModel">Модель:</label>
+                    <input type="text" id="carModel" required>
+                </div>
+                <div class="form-group">
+                    <label for="carNumber">Гос. номер:</label>
+                    <input type="text" id="carNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="carYear">Год выпуска:</label>
+                    <input type="number" id="carYear" required>
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="editCarModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Редактирование автомобиля</h3>
+            <form id="editCarForm">
+                <div class="form-group">
+                    <label for="editCarBrand">Марка:</label>
+                    <input type="text" id="editCarBrand" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCarNumber">Гос. номер:</label>
+                    <input type="text" id="editCarNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCarSerial">Серийный номер:</label>
+                    <input type="text" id="editCarSerial">
+                </div>
+                <div class="form-group">
+                    <label for="editCarYear">Год выпуска:</label>
+                    <input type="number" id="editCarYear">
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="documentDetailsModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="documentDetailsTitle"></h3>
+            <div id="documentDetailsContent"></div>
+            <div id="documentEditForm" style="display: none;">
+                <h4>Редактировать</h4>
+                <form id="editDocumentForm">
+                    <div id="editFormFields"></div>
+                    <button type="submit" class="submit-btn">Обновить</button>
+                </form>
+            </div>
+            <button id="editDocumentBtn" class="action-btn" style="margin-top: 20px;">
+                <i class="fas fa-edit"></i> Изменить
+            </button>
+        </div>
+    </div>
+
+    <script src="js/driver.js"></script>
+</body>
+</html>

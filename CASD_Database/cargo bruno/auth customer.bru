@@ -1,0 +1,18 @@
+meta {
+  name: auth customer
+  type: http
+  seq: 16
+}
+
+post {
+  url: http://0.0.0.0:8000/api/auth/authorize
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 100,
+    "role": "customer"
+  }
+}

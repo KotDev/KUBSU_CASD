@@ -1,0 +1,20 @@
+meta {
+  name: create customer
+  type: http
+  seq: 17
+}
+
+post {
+  url: http://0.0.0.0:8000/api/auth/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "register_driver": null,
+    "register_customer": {
+      "name_company": "ООО Ромашка"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+meta {
+  name: create driverlicense
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://0.0.0.0:8000/api/drivers/me/document/driver-license/create
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "number_driverlicense": "2222",
+    "seria_driverlicense": "333333",
+    "get_date": "2020-01-01",
+    "document_id": 956
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: get me customer
+  type: http
+  seq: 20
+}
+
+get {
+  url: http://0.0.0.0:8000/api/customer/me
+  body: none
+  auth: inherit
+}
+
+headers {
+  customer_id: 100
+}

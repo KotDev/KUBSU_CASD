@@ -1,0 +1,22 @@
+meta {
+  name: create category for driverlicense
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://0.0.0.0:8000/api/drivers/me/document/driver-license/add-category
+  body: json
+  auth: inherit
+}
+
+headers {
+  : 
+}
+
+body:json {
+  {
+    "category_id": 2,
+    "number_driverlicense": "2222"
+  }
+}

@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db_1:
+    container_name: postgres_db_casd_lab_3
+    image: postgres:14.1
+    mem_limit: 1GB
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: Teachers
+    volumes:
+      - ./db_1:/var/lib/postgresql/data/
+    command: postgres -c effective_cache_size=65536
+    ports:
+      - "5430:5432"
+  db_2:
+    container_name: postgres_db_casd_cargo_transportation
+    image: postgres:14.1
+    mem_limit: 1GB
+    environment:
+      POSTGRES_USER: danil
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: CargoTransportation
+    volumes:
+      - ./db_cargo:/var/lib/postgresql/data/
+    command: postgres -c effective_cache_size=65536
+    ports:
+      - "5431:5432"
