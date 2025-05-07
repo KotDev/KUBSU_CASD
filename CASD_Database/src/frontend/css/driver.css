@@ -144,7 +144,7 @@ body.driver-theme {
     color: #d9232e;
 }
 
-.action-btn {
+.action-btn, action-btn cancel-btn {
     background-color: #d9232e;
     color: white;
     border: none;
@@ -154,7 +154,7 @@ body.driver-theme {
     font-size: 14px;
 }
 
-.action-btn:hover {
+.action-btn, action-btn cancel-btn:hover {
     background-color: #b71c1c;
 }
 

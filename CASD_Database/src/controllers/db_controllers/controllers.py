@@ -25,7 +25,11 @@ from CASD_Database.src.pydantic_models import (RegisterDriver,
                                                CreatePassportSchema,
                                                CreateDriverLicenseSchema,
                                                CreateSnilsSchema,
-                                               CreateInnSchema)
+                                               CreateInnSchema,
+                                               PutyListLineElement,
+                                               PutyListsLine,
+                                               PutyListReport,
+                                               PutyListInfo, CreatePutyListSchema)
 
 def query_update_on_id(model, id, type, type_id, **kwargs):
     fields = {f.name for f in dataclasses.fields(model)}
@@ -215,6 +219,7 @@ class DocumentController:
             if record is not None:
                 data = AsyncSession.record_to_dataclass(record, Documents)
                 return data
+            raise HTTPException(detail="This document not in db", status_code=404)
 
 
     async def create_documents(self):
@@ -308,6 +313,24 @@ class CategoryController:
                                             ) for cat in categoryes_model]
             return categoryes
 
+    async def get_not_categoryes_driver_license(self, number_driver_license):
+        async with AsyncSession(db=self.db) as session:
+            print(number_driver_license)
+            record_driver_license = await session.fetch('''SELECT * FROM category c 
+                                                                WHERE c.category_id NOT IN (
+                                                                    SELECT cd.categoryes_id 
+                                                                    FROM category_driverlicense cd 
+                                                                    WHERE cd.numbers_driverlicense = $1
+                                                                )''',
+                                                        number_driver_license)
+            categoryes = list()
+            if record_driver_license:
+                categoryes_model: List[Category] = [AsyncSession.record_to_dataclass(cat, Category) for cat in record_driver_license]
+                categoryes = [CategorySchema(category_id=cat.category_id,
+                                             category_name=cat.category_name,
+                                            ) for cat in categoryes_model]
+            return categoryes
+
     async def get_category_driver_license_id(self, number_driverlicense, category_id):
         async with AsyncSession(db=self.db) as session:
             record = await session.fetchrow('''SELECT id_category_driverlicense FROM category_driverlicense 
@@ -328,13 +351,21 @@ class CityController:
     def __init__(self, db: DB):
         self.db = db
 
-    async def get(self, city_name):
+    async def get(self, city_id):
         async with AsyncSession(db=self.db) as session:
-            record = await session.fetchrow("SELECT * FROM city WHERE city_name = $1", city_name)
+            record = await session.fetchrow("SELECT * FROM city WHERE city_id = $1", city_id)
             if record is not None:
                 data = AsyncSession.record_to_dataclass(record, City)
                 return data
-
+            raise HTTPException(detail="This city not in db", status_code=404)
+    
+    async def get_city_for_region(self, region_id):
+        async with AsyncSession(db=self.db) as session:
+            record = await session.fetch("SELECT * FROM city WHERE region_id = $1", region_id)
+            if record:
+                return [AsyncSession.record_to_dataclass(city, City) for city in record]
+            return []
+            
 class RegionController:
     def __init__(self, db: DB):
         self.db = db
@@ -345,6 +376,12 @@ class RegionController:
             if record is not None:
                 data = AsyncSession.record_to_dataclass(record, Region)
                 return data
+            raise HTTPException(detail="This region not in db", status_code=404)
+    
+    async def get_all_regions(self):
+        async with AsyncSession(db=self.db) as session:
+            record = await session.fetch("SELECT * FROM region")
+            return [AsyncSession.record_to_dataclass(region, Region) for region in record]
 
 class CargoController:
     def __init__(self, db: DB):
@@ -356,6 +393,12 @@ class CargoController:
             if record is not None:
                 data = AsyncSession.record_to_dataclass(record, Cargo)
                 return data
+            raise HTTPException(detail="This cargo not in db", status_code=404)
+        
+    async def get_all_cargo(self):
+        async with AsyncSession(db=self.db) as session:
+            record = await session.fetch("SELECT * FROM cargo")
+            return [AsyncSession.record_to_dataclass(cargo, Cargo) for cargo in record]
 
 class DriverController:
     def __init__(self, db: DB):
@@ -376,6 +419,7 @@ class DriverController:
                                                 VALUES($1, $2, $3, $4, $5)
                                                 RETURNING driver_id''',
                                             schema.name, schema.mid_name, schema.last_name, document_id, None)
+            print(record, schema)
             return record["driver_id"]
 
     async def get_driver_info(self, driver_id):
@@ -393,8 +437,10 @@ class DriverController:
 
     async def update_driver_info(self, driver_id: int, **kwargs):
         async with AsyncSession(db=self.db) as session:
-            query, params = query_update_on_id(Driver, driver_id, "diiver", "driver_id", **kwargs)
+            query, params = query_update_on_id(Driver, driver_id, "driver", "driver_id", **kwargs)
             await session.execute(query, *params)
+    
+
 
 
 
@@ -410,6 +456,7 @@ class CustomerController:
             if record is not None:
                 data = AsyncSession.record_to_dataclass(record, Customer)
                 return data
+            raise HTTPException(detail="This customer not in db", status_code=404)
 
     async def get_customer_info(self, customer_id):
         async with AsyncSession(db=self.db) as session:
@@ -428,6 +475,7 @@ class CustomerController:
             record = await session.fetchrow('''INSERT INTO customer (name_company, documents_id) VALUES ($1, $2)
                                                      RETURNING customer_id''',
                                             schema.name_company, document_id)
+            print(record)
             return record["customer_id"]
 
 
@@ -442,6 +490,150 @@ class PutyListController:
             if record is not None:
                 data = AsyncSession.record_to_dataclass(record, PutyList)
                 return data
+            raise HTTPException(detail="This puty_list not in db", status_code=404)
+
+    async def get_puty_list_line(self, user_id: int, status: str, role: str):
+        async with AsyncSession(db=self.db) as session:
+            record = await session.fetch(f'''
+                                            SELECT
+                                                p.puty_list_id,
+                                                p.date_sending,
+                                                p.date_arrival,
+                                                p.status,
+                                                ci.city_name AS departure_city_name,
+                                                cia.city_name AS arrival_city_name,
+                                                carg.cargo_name,
+                                                cust.name_company,
+                                                p.all_price + carg.weight::numeric * p.price_kg AS total_price
+                                               FROM puty_list p
+                                                 JOIN cargo carg ON carg.cargo_id = p.cargo_id
+                                                 JOIN customer cust ON cust.customer_id = p.customer_id
+                                                 JOIN city ci ON ci.city_id = p.send_city_id
+                                                 JOIN city cia ON cia.city_id = p.arrival_city_id
+                                               WHERE p.{role} = $1 AND p.status = $2
+                                            ''', *[user_id, status])
+            if record:
+                line = [PutyListLineElement(**elem) for elem in record]
+                return PutyListsLine(line=line)
+            return PutyListsLine(line=[])
+
+    async def get_puty_list_line_order(self, size: int, page: int):
+        async with AsyncSession(db=self.db) as session:
+            if page < 1:
+                raise ValueError("Page number must be greater than 0")
+            if size < 1:
+                raise ValueError("Size must be greater than 0")
+            
+            offset = (page - 1) * size
+            
+            record = await session.fetch(f'''
+                SELECT
+                    p.puty_list_id,
+                    p.date_sending,
+                    p.date_arrival,
+                    p.status,
+                    ci.city_name AS departure_city_name,
+                    cia.city_name AS arrival_city_name,
+                    carg.cargo_name,
+                    cust.name_company,
+                    p.all_price + carg.weight::numeric * p.price_kg + p.all_km::numeric * p.price_km AS total_price
+                FROM puty_list p
+                    JOIN cargo carg ON carg.cargo_id = p.cargo_id
+                    JOIN customer cust ON cust.customer_id = p.customer_id
+                    JOIN city ci ON ci.city_id = p.send_city_id
+                    JOIN city cia ON cia.city_id = p.arrival_city_id
+                WHERE p.driver_id is NULL
+                ORDER BY p.date_register_putylist DESC
+                OFFSET $1 ROWS FETCH NEXT $2 ROWS ONLY
+            ''', offset, size)
+            
+            if record:
+                line = [PutyListLineElement(**elem) for elem in record]
+                return PutyListsLine(line=line)
+            return PutyListsLine(line=[])
+
+    async def get_puty_list_report(self, puty_list_id: int):
+        async with AsyncSession(db=self.db) as session:
+            record = await session.fetchrow(f'''
+                SELECT
+                    p.puty_list_id,
+                    p.date_sending,
+                    p.date_arrival,
+                    p.status,
+                    ci.city_name AS departure_city_name,
+                    cia.city_name AS arrival_city_name,
+                    p.all_km,
+                    carg.cargo_name,
+                    carg.weight,
+                    carg.height,
+                    carg.width,
+                    carg.length,
+                    p.price_km,
+                    p.price_kg,
+                    p.all_price,
+                    p.all_price + carg.weight::numeric * p.price_kg + p.all_km::numeric * p.price_km AS total_price,
+                    cust.name_company,
+                    d.name,
+                    d.mid_name,
+                    d.last_name,
+                    c.car_name,
+                    c.number_car,
+                    c.serial_number_car
+                FROM puty_list p
+                    JOIN cargo carg ON carg.cargo_id = p.cargo_id
+                    JOIN driver d ON d.driver_id = p.driver_id
+                    JOIN car c ON c.car_id = d.car_id
+                    JOIN customer cust ON cust.customer_id = p.customer_id
+                    JOIN city ci ON ci.city_id = p.send_city_id
+                    JOIN city cia ON cia.city_id = p.arrival_city_id
+                WHERE p.puty_list_id = $1 AND p.driver_id IS NOT NULL
+            ''', puty_list_id)
+            print(record)
+            if record is None:
+                raise HTTPException(detail="This puty_list not in db", status_code=404)
+            
+            return PutyListReport(**record)
+    
+    async def get_puty_list_info(self, puty_list_id: int):
+        async with AsyncSession(db=self.db) as session:
+            record = await session.fetchrow(f'''
+                                            SELECT
+                                                p.date_sending,
+                                                p.date_arrival,
+                                                ci.city_name AS departure_city_name,
+                                                cia.city_name AS arrival_city_name,
+                                                carg.cargo_name,
+                                                cust.name_company,
+                                                p.all_km,
+                                                p.price_km,
+                                                p.price_kg,
+                                                carg.weight,
+                                                carg.height,
+                                                carg.width,
+                                                carg.length,                                            
+                                                p.all_price + carg.weight::numeric * p.price_kg + p.all_km::numeric * p.price_km AS total_price
+                                               FROM puty_list p
+                                                 JOIN cargo carg ON carg.cargo_id = p.cargo_id
+                                                 JOIN customer cust ON cust.customer_id = p.customer_id
+                                                 JOIN city ci ON ci.city_id = p.send_city_id
+                                                 JOIN city cia ON cia.city_id = p.arrival_city_id
+                                               WHERE p.puty_list_id = $1
+                                            ''', puty_list_id)
+            if record is not None:
+                return PutyListInfo(**record)
+            raise HTTPException(detail="This puty_list not in db", status_code=404)
+
+    async def create_puty_list(self, schema: CreatePutyListSchema):
+        async with AsyncSession(db=self.db) as session:
+            print(schema)
+            await session.execute('''INSERT INTO puty_list (date_sending, date_arrival, cargo_id, customer_id, send_city_id, arrival_city_id, all_km, price_km, price_kg)
+                                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)''',
+                                     schema.date_sending, schema.date_arrival, schema.cargo_id, schema.customer_id, schema.send_city_id, schema.arrival_city_id, schema.all_km, schema.price_km, schema.price_kg)
+            
+    async def update_puty_list(self, puty_list_id, **kwargs):
+        async with AsyncSession(db=self.db) as session:
+            query, params = query_update_on_id(PutyList, puty_list_id, "puty_list", "puty_list_id", **kwargs)
+            await session.execute(query, *params)
 
 class CarController:
     def __init__(self, db: DB):

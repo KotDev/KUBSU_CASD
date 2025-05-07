@@ -1,0 +1,65 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}{{ vehicle.car_name }} - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Информация о транспорте</h1>
+        <div>
+            <a href="{% url 'admin_panel:vehicle_edit' vehicle.car_id %}" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Редактировать
+            </a>
+            <a href="{% url 'admin_panel:vehicle_delete' vehicle.car_id %}" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Удалить
+            </a>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Основная информация</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>ID</th>
+                            <td>{{ vehicle.car_id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Название</th>
+                            <td>{{ vehicle.car_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Номер</th>
+                            <td>{{ vehicle.number_car }}</td>
+                        </tr>
+                        <tr>
+                            <th>Серийный номер</th>
+                            <td>{{ vehicle.serial_number_car }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'admin_panel:vehicles' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Назад к списку
+        </a>
+    </div>
+</div>
+{% endblock %} 

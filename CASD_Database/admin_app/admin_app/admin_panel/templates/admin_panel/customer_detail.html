@@ -1,0 +1,98 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}{{ customer.name_company }} - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-building"></i> {{ customer.name_company }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Основная информация</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>ID</th>
+                                            <td>{{ customer.customer_id|default:"-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Название компании</th>
+                                            <td>{{ customer.name_company|default:"-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Дата регистрации</th>
+                                            <td>{{ customer.date_register|date:"d.m.Y H:i"|default:"-" }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Документы</h4>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>ИНН</th>
+                                            <td>{{ inn.number_inn|default:"-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Дата получения ИНН</th>
+                                            <td>{{ inn.get_date|date:"d.m.Y"|default:"-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>СНИЛС</th>
+                                            <td>{{ snils.number_snils|default:"-" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Дата получения СНИЛС</th>
+                                            <td>{{ snils.get_date|date:"d.m.Y"|default:"-" }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <a href="{% url 'admin_panel:customer_edit' customer.customer_id %}" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Редактировать
+                            </a>
+                            <a href="{% url 'admin_panel:customer_delete' customer.customer_id %}" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Удалить
+                            </a>
+                            <a href="{% url 'admin_panel:customers' %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Назад к списку
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

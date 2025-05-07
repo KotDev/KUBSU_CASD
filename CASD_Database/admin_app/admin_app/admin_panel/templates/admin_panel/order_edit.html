@@ -1,0 +1,199 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Редактирование заказа #{{ order.puty_list_id }} - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-edit"></i> Редактирование заказа #{{ order.puty_list_id }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Основная информация</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="status" class="form-label">Статус</label>
+                                            <select class="form-select" id="status" name="status" required>
+                                                <option value="Не доставлен" {% if order.status == 'Не доставлен' %}selected{% endif %}>Не доставлен</option>
+                                                <option value="В пути" {% if order.status == 'В пути' %}selected{% endif %}>В пути</option>
+                                                <option value="Доставлен" {% if order.status == 'Доставлен' %}selected{% endif %}>Доставлен</option>
+                                                <option value="Отменен" {% if order.status == 'Отменен' %}selected{% endif %}>Отменен</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, выберите статус
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="date_sending" class="form-label">Дата отправления</label>
+                                            <input type="datetime-local" class="form-control" id="date_sending" name="date_sending" 
+                                                   value="{{ order.date_sending|date:'Y-m-d\TH:i' }}" required>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, укажите дату отправления
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="date_arrival" class="form-label">Дата прибытия</label>
+                                            <input type="datetime-local" class="form-control" id="date_arrival" name="date_arrival" 
+                                                   value="{{ order.date_arrival|date:'Y-m-d\TH:i' }}" required>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, укажите дату прибытия
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="all_km" class="form-label">Расстояние (км)</label>
+                                            <input type="number" class="form-control" id="all_km" name="all_km" 
+                                                   value="{{ order.all_km }}" step="0.1" required>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, укажите расстояние
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="price_km" class="form-label">Цена за км (₽)</label>
+                                            <input type="number" class="form-control" id="price_km" name="price_km" 
+                                                   value="{{ order.price_km }}" step="0.01" required>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, укажите цену за км
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Дополнительная информация</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="cargo" class="form-label">Груз</label>
+                                            <select class="form-select" id="cargo" name="cargo" required>
+                                                <option value="">Выберите груз</option>
+                                                {% for cargo in cargos %}
+                                                <option value="{{ cargo.cargo_id }}" {% if order.cargo and order.cargo.cargo_id == cargo.cargo_id %}selected{% endif %}>
+                                                    {{ cargo.cargo_name }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, выберите груз
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="customer" class="form-label">Заказчик</label>
+                                            <select class="form-select" id="customer" name="customer" required>
+                                                <option value="">Выберите заказчика</option>
+                                                {% for customer in customers %}
+                                                <option value="{{ customer.customer_id }}" {% if order.customer and order.customer.customer_id == customer.customer_id %}selected{% endif %}>
+                                                    {{ customer.name_company }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, выберите заказчика
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="driver" class="form-label">Водитель</label>
+                                            <select class="form-select" id="driver" name="driver" required>
+                                                <option value="">Выберите водителя</option>
+                                                {% for driver in drivers %}
+                                                <option value="{{ driver.driver_id }}" {% if order.driver and order.driver.driver_id == driver.driver_id %}selected{% endif %}>
+                                                    {{ driver.name }} {{ driver.mid_name }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, выберите водителя
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="send_city" class="form-label">Город отправления</label>
+                                            <select class="form-select" id="send_city" name="send_city" required>
+                                                <option value="">Выберите город</option>
+                                                {% for city in cities %}
+                                                <option value="{{ city.city_id }}" {% if order.send_city and order.send_city.city_id == city.city_id %}selected{% endif %}>
+                                                    {{ city.city_name }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, выберите город отправления
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="arrival_city" class="form-label">Город назначения</label>
+                                            <select class="form-select" id="arrival_city" name="arrival_city" required>
+                                                <option value="">Выберите город</option>
+                                                {% for city in cities %}
+                                                <option value="{{ city.city_id }}" {% if order.arrival_city and order.arrival_city.city_id == city.city_id %}selected{% endif %}>
+                                                    {{ city.city_name }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, выберите город назначения
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Сохранить изменения
+                                </button>
+                                <a href="{% url 'admin_panel:order_detail' order.puty_list_id %}" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i> Отмена
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Валидация формы
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %} 

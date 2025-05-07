@@ -1,0 +1,181 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Создание нового заказа - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-plus-circle me-2"></i>Создание нового заказа
+                </h5>
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted">Основная информация</h6>
+                                    <div class="mb-3">
+                                        <label for="id_status" class="form-label">Статус</label>
+                                        <select name="status" id="id_status" class="form-select" required>
+                                            {% for value, label in form.status.field.choices %}
+                                            <option value="{{ value }}" {% if form.status.value == value %}selected{% endif %}>
+                                                {{ label }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Пожалуйста, выберите статус заказа
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted">Заказчик</h6>
+                                    <div class="mb-3">
+                                        <label for="id_customer" class="form-label">Заказчик</label>
+                                        <select name="customer" id="id_customer" class="form-select" required>
+                                            <option value="">Выберите заказчика</option>
+                                            {% for customer in customers %}
+                                            <option value="{{ customer.id }}" {% if form.customer.value == customer.id %}selected{% endif %}>
+                                                {{ customer.name }} ({{ customer.phone }})
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Пожалуйста, выберите заказчика
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted">Груз</h6>
+                                    <div class="mb-3">
+                                        <label for="id_cargo" class="form-label">Груз</label>
+                                        <select name="cargo" id="id_cargo" class="form-select" required>
+                                            <option value="">Выберите груз</option>
+                                            {% for cargo in cargos %}
+                                            <option value="{{ cargo.id }}" {% if form.cargo.value == cargo.id %}selected{% endif %}>
+                                                {{ cargo.cargo_name }} ({{ cargo.weight }} кг)
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Пожалуйста, выберите груз
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted">Маршрут</h6>
+                                    <div class="mb-3">
+                                        <label for="id_route" class="form-label">Маршрут</label>
+                                        <select name="route" id="id_route" class="form-select" required>
+                                            <option value="">Выберите маршрут</option>
+                                            {% for route in routes %}
+                                            <option value="{{ route.id }}" {% if form.route.value == route.id %}selected{% endif %}>
+                                                {{ route.start_city.name }} → {{ route.end_city.name }} ({{ route.distance }} км)
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Пожалуйста, выберите маршрут
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted">Транспорт</h6>
+                                    <div class="mb-3">
+                                        <label for="id_vehicle" class="form-label">Транспорт</label>
+                                        <select name="vehicle" id="id_vehicle" class="form-select" required>
+                                            <option value="">Выберите транспорт</option>
+                                            {% for vehicle in vehicles %}
+                                            <option value="{{ vehicle.id }}" {% if form.vehicle.value == vehicle.id %}selected{% endif %}>
+                                                {{ vehicle.model }} ({{ vehicle.number }})
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Пожалуйста, выберите транспорт
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted">Водитель</h6>
+                                    <div class="mb-3">
+                                        <label for="id_driver" class="form-label">Водитель</label>
+                                        <select name="driver" id="id_driver" class="form-select" required>
+                                            <option value="">Выберите водителя</option>
+                                            {% for driver in drivers %}
+                                            <option value="{{ driver.id }}" {% if form.driver.value == driver.id %}selected{% endif %}>
+                                                {{ driver.name }} ({{ driver.phone }})
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Пожалуйста, выберите водителя
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'admin_panel:order_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Назад к списку
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Создать заказ
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Валидация формы
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+</script>
+{% endblock %} 

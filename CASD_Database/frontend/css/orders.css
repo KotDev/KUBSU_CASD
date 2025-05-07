@@ -1,0 +1,59 @@
+/* Используем переменные для цветов */
+:root {
+    --driver-primary: #c0392b;
+    --driver-hover: #e74c3c;
+}
+
+/* Основные стили */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: var(--driver-primary);
+    color: white;
+    padding: 20px 0;
+}
+
+/* ... остальные стили ... */
+
+/* Стили для кнопок фильтров */
+.filter-btn {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: 2px solid var(--driver-primary);
+    background: white;
+    color: var(--driver-primary);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--driver-primary);
+    color: white;
+}
+
+/* Стили для меню */
+.menu li.active,
+.menu li:hover {
+    background-color: var(--driver-hover);
+}
+
+/* Стили для кнопки договора */
+.contract-btn.driver {
+    background: var(--driver-primary);
+    color: white;
+}
+
+.contract-btn.driver:hover {
+    background: var(--driver-hover);
+} 

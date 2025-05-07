@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASD - Мои грузы</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/orders.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <h3 id="driverName">Загрузка...</h3>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li>
+                    <i class="fas fa-user"></i> Профиль
+                </li>
+                <li class="active">
+                    <i class="fas fa-box"></i> Мои грузы
+                </li>
+                <li>
+                    <i class="fas fa-search"></i> Поиск заказов
+                </li>
+            </ul>
+        </nav>
+        <button id="logoutBtn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+        </button>
+    </div>
+
+    <div class="main-content">
+        <div class="filters">
+            <button class="filter-btn active" data-status="В пути">В пути</button>
+            <button class="filter-btn" data-status="Доставлен">Доставлено</button>
+            <button class="filter-btn" data-status="Не доставлен">Не доставлено</button>
+        </div>
+
+        <div id="ordersContainer" class="orders-container">
+            <!-- Здесь будут карточки грузов -->
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/driver_order.js"></script>
+</body>
+</html> 

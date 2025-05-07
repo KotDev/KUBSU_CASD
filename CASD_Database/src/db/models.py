@@ -157,12 +157,7 @@ class Cargo:
     height: float = field(metadata={'units': 'm'})
     date_register_cargo: datetime = field(default_factory=datetime.now)
 
-    def __post_init__(self):
-        validate_string(self.cargo_name, "Cargo name", 1, 90)
-        validate_positive_number(self.weight, "Weight")
-        validate_positive_number(self.length, "Length")
-        validate_positive_number(self.width, "Width")
-        validate_positive_number(self.height, "Height")
+
 
 @dataclass
 class Customer:

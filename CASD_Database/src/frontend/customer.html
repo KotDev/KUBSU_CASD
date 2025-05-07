@@ -3,17 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личный кабинет заказчика | CASD</title>
+    <title>CASD - Личный кабинет заказчика</title>
     <link rel="stylesheet" href="css/customer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body class="customer-theme">
-    <div class="container">
-        <h1>Добро пожаловать, заказчик!</h1>
-        <div class="user-info">
-            <p>Ваш ID: <span id="userId"></span></p>
-            <p>Document ID: <span id="documentId"></span></p>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <h3 id="customerName"></h3>
         </div>
-        <button id="logoutBtn" class="logout-btn">Выйти</button>
+        <nav class="menu">
+            <ul>
+                <li class="active" data-section="profile">
+                    <i class="fas fa-user"></i> Профиль
+                </li>
+                <li data-section="orders">
+                    <i class="fas fa-box"></i> Мои заказы
+                </li>
+                <li data-section="create-order">
+                    <i class="fas fa-plus-circle"></i> Создать заказ
+                </li>
+            </ul>
+        </nav>
+        <button id="logoutBtn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+        </button>
+    </div>
+
+    <div class="main-content">
+        <div id="profileSection" class="profile-section active">
+            <h2>Профиль компании</h2>
+            
+            <div class="info-card">
+                <h3>Основная информация</h3>
+                <div class="info-row">
+                    <span>ID:</span>
+                    <span id="customerId"></span>
+                </div>
+                <div class="info-row">
+                    <span>Название компании:</span>
+                    <span id="companyNameInfo"></span>
+                </div>
+            </div>
+
+            <div class="document-section">
+                <h3>СНИЛС</h3>
+                <div id="snilsContent">
+                    <div class="info-row">
+                        <span>Номер СНИЛС:</span>
+                        <span id="snilsNumber"></span>
+                    </div>
+                    <div class="info-row">
+                        <span>Дата выдачи:</span>
+                        <span id="snilsDate"></span>
+                    </div>
+                </div>
+                <button id="createSnilsBtn" class="action-btn">
+                    <i class="fas fa-plus"></i> Зарегистрировать СНИЛС
+                </button>
+            </div>
+
+            <div class="document-section">
+                <h3>ИНН</h3>
+                <div id="innContent">
+                    <div class="info-row">
+                        <span>Номер ИНН:</span>
+                        <span id="innNumber"></span>
+                    </div>
+                    <div class="info-row">
+                        <span>Дата выдачи:</span>
+                        <span id="innDate"></span>
+                    </div>
+                </div>
+                <button id="createInnBtn" class="action-btn">
+                    <i class="fas fa-plus"></i> Зарегистрировать ИНН
+                </button>
+            </div>
+        </div>
+
+        <div id="ordersSection" style="display: none;">
+            <h2>Мои заказы</h2>
+            <div id="ordersContent"></div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для СНИЛС -->
+    <div id="snilsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Регистрация СНИЛС</h3>
+            <form id="snilsForm">
+                <div class="form-group">
+                    <label for="snilsNumberInput">Номер СНИЛС:</label>
+                    <input type="text" id="snilsNumberInput" required pattern="\d{11}" title="СНИЛС должен содержать 11 цифр">
+                </div>
+                <div class="form-group">
+                    <label for="snilsDateInput">Дата выдачи:</label>
+                    <input type="date" id="snilsDateInput" required>
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для ИНН -->
+    <div id="innModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Регистрация ИНН</h3>
+            <form id="innForm">
+                <div class="form-group">
+                    <label for="innNumberInput">Номер ИНН:</label>
+                    <input type="text" id="innNumberInput" required pattern="\d{12}" title="ИНН должен содержать 12 цифр">
+                </div>
+                <div class="form-group">
+                    <label for="innDateInput">Дата выдачи:</label>
+                    <input type="date" id="innDateInput" required>
+                </div>
+                <button type="submit" class="submit-btn">Сохранить</button>
+            </form>
+        </div>
     </div>
 
     <script src="js/customer.js"></script>

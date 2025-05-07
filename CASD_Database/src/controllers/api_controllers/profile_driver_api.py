@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Request, HTTPException
 from starlette.responses import JSONResponse
 
@@ -51,6 +53,13 @@ async def get_me_passport(request: Request, db_controller: MainDbControllers = D
                           serial_passport=passport.serial_passport,
                           birthday=passport.birthday)
 
+@profile_driver_router.get("/driver-license/not-category")
+async def get_not_category(request: Request, db_controller: MainDbControllers = Depends(get_db_controller)):
+    number_driverlicense: str = request.headers.get("number_driverlicense")
+    if number_driverlicense is None:
+        return HTTPException(detail="number_license not in headers request", status_code=404)
+    categoryes: List[CategorySchema] = await db_controller.category_controller.get_not_categoryes_driver_license(number_driverlicense)
+    return categoryes
 
 @profile_driver_router.get("/documents")
 async def get_me_documents(request: Request, db_controller: MainDbControllers = Depends(get_db_controller)):
@@ -76,7 +85,6 @@ async def get_me_documents(request: Request, db_controller: MainDbControllers = 
                                                     categoryes=categoryes_schema,
                                                     seria_driverlicense=documents.driver_license_data.seria_driverlicense)
     else:
-        categoryes_schema = None
         driver_license_schema = None
 
     if documents.passport_data is not None:
@@ -100,9 +108,12 @@ async def get_me_driver_license(request: Request, db_controller: MainDbControlle
         return HTTPException(detail="driver_license_id not in headers request", status_code=404)
 
     driver_license: DriverLicense = await db_controller.driver_license_controller.get_all_info_driver_license(driver_license_id)
-    categoryes_schema = [CategorySchema(category_id=category.category_id,
-                                        category_name=category.category_name)
-                         for category in driver_license.categoryes]
+    if driver_license.categoryes is not None:
+        categoryes_schema = [CategorySchema(category_id=category.category_id,
+                                            category_name=category.category_name)
+                             for category in driver_license.categoryes]
+    else:
+        categoryes_schema = None
     return DriverLicenseSchema(number_driverlicense=driver_license.number_driverlicense,
                                get_date=driver_license.get_date,
                                seria_driverlicense=driver_license.seria_driverlicense,
@@ -119,7 +130,8 @@ async def put_me(schema: DriverUpdateSchema, request: Request, db_controller: Ma
         return HTTPException(detail="driver_id not in headers request", status_code=404)
     update_schema = schema.model_dump()
     await db_controller.driver_controller.get(driver_id)
-    await db_controller.driver_controller.update_driver_info(driver_id, update_schema)
+    print(update_schema)
+    await db_controller.driver_controller.update_driver_info(driver_id, **update_schema)
     return JSONResponse({"Status": "Successful", "update_driver_id": driver_id}, status_code=200)
 
 @profile_driver_router.put("/document/passport")
@@ -149,6 +161,7 @@ async def put_driver_license(schema: UpdateDriverLicense, request: Request, db_c
 
 @profile_driver_router.post("/document/passport/create")
 async def post_me_passport(schema: CreatePassportSchema, db_controller: MainDbControllers = Depends(get_db_controller)):
+    print(schema)
     passport = await db_controller.passport_controller.exists(schema.number_passport)
     if passport is not None:
         raise HTTPException(detail="The passport already exists", status_code=400)

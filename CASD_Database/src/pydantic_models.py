@@ -80,14 +80,13 @@ class RegionSchema(BaseModel):
 class CitySchema(BaseModel):
     city_id: int
     city_name: str = Field(..., min_length=2, max_length=60)
-    region_id: int
     region: Optional[RegionSchema] = None
 
-    @field_validator('region_id')
-    def validate_positive_number(cls, value):
-        if value <= 0:
-            raise ValueError("Region ID must be positive")
-        return value
+class CitiesForRegion(BaseModel):
+    cities: List[CitySchema]
+
+class Regions(BaseModel):
+    regions: List[RegionSchema]
 
 # Модель Car
 class CarSchema(BaseModel):
@@ -124,11 +123,10 @@ class DriverSchema(BaseModel):
 class CargoSchema(BaseModel):
     cargo_id: int
     cargo_name: str = Field(..., min_length=1, max_length=90)
-    weight: int = Field(..., gt=0)
-    length: float = Field(..., gt=0)
-    width: float = Field(..., gt=0)
-    height: float = Field(..., gt=0)
-    date_register_cargo: datetime = Field(default_factory=datetime.now)
+    weight: int | None
+    length: float | None
+    width: float | None
+    height: float | None
 
 # Модель Customer
 class CustomerSchema(BaseModel):
@@ -296,3 +294,93 @@ class CreateInnSchema(BaseModel):
         if value > date.today():
             raise ValueError("INN issue date cannot be in the future")
         return value
+
+
+class PutyListLineElement(BaseModel):
+    puty_list_id: int
+    date_sending: datetime
+    date_arrival: datetime
+    status: str
+    departure_city_name: str
+    arrival_city_name: str
+    cargo_name: str
+    name_company: str
+    total_price: Decimal
+
+
+class PutyListsLine(BaseModel):
+    line: List[PutyListLineElement]
+
+class PutyListReport(BaseModel):
+    # Информация о путевом листе
+    puty_list_id: int = Field(..., description="Номер путевого листа")
+    date_sending: datetime = Field(..., description="Дата отправления")
+    date_arrival: datetime = Field(..., description="Дата прибытия")
+    status: str = Field(..., description="Статус доставки")
+    
+    # Информация о маршруте
+    departure_city_name: str = Field(..., description="Город отправления")
+    arrival_city_name: str = Field(..., description="Город прибытия")
+    all_km: float = Field(..., description="Общее расстояние (км)")
+    
+    # Информация о грузе
+    cargo_name: str = Field(..., description="Наименование груза")
+    weight: float = Field(..., description="Вес груза (кг)")
+    height: float = Field(..., description="Высота груза (см)")
+    width: float = Field(..., description="Ширина груза (см)")
+    length: float = Field(..., description="Длина груза (см)")
+    
+    # Информация о стоимости
+    price_km: Decimal = Field(..., description="Цена за километр")
+    price_kg: Decimal = Field(..., description="Цена за килограмм")
+    all_price: Decimal = Field(..., description="Базовая стоимость")
+    total_price: Decimal = Field(..., description="Итоговая стоимость")
+    
+    # Информация о компании
+    name_company: str = Field(..., description="Название компании заказчика")
+    
+    # Дополнительные поля для отчета
+    name: str = Field(..., description="Имя водителя")
+    mid_name: str = Field(..., description="Отчество водителя")
+    last_name: str = Field(..., description="Фамилия водителя")
+    car_name: str = Field(..., description="Название автомобиля")
+    number_car: str = Field(..., description="Номер автомобиля")
+    serial_number_car: int = Field(..., description="Серийный номер автомобиля")
+
+
+class PutyListInfo(BaseModel):
+    date_sending: datetime
+    date_arrival: datetime
+    departure_city_name: str
+    arrival_city_name: str
+    cargo_name: str
+    name_company: str
+    all_km: float
+    price_km: Decimal
+    price_kg: Decimal
+    weight: float
+    height: float
+    width: float
+    length: float
+    
+class CreatePutyListSchema(BaseModel):
+    date_sending: datetime
+    date_arrival: datetime
+    cargo_id: int
+    customer_id: int | None
+    send_city_id: int
+    arrival_city_id: int
+    all_km: float
+    price_km: Decimal
+    price_kg: Decimal
+
+class UpdatePutyListSchema(BaseModel):
+    puty_list_id: int
+    date_sending: datetime
+    date_arrival: datetime
+    cargo_id: int
+    driver_id: int
+    customer_id: int
+    
+class CargoAllSchema(BaseModel):
+    cargos: List[CargoSchema]

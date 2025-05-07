@@ -1,0 +1,66 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Редактирование заказчика - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Редактирование заказчика</h2>
+    
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="name_company" class="form-label">Название компании</label>
+                    <input type="text" class="form-control" id="name_company" name="name_company" 
+                           value="{{ customer.name_company }}" required>
+                </div>
+                
+                <h4 class="mt-4">Документы</h4>
+                
+                <div class="mb-3">
+                    <label for="number_inn" class="form-label">ИНН</label>
+                    <input type="text" class="form-control" id="number_inn" name="number_inn" 
+                           value="{{ inn.number_inn|default:'' }}" 
+                           pattern="\d{10,12}" title="ИНН должен содержать 10-12 цифр">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="inn_get_date" class="form-label">Дата получения ИНН</label>
+                    <input type="date" class="form-control" id="inn_get_date" name="inn_get_date" 
+                           value="{{ inn.get_date|date:'Y-m-d'|default:'' }}">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="number_snils" class="form-label">СНИЛС</label>
+                    <input type="text" class="form-control" id="number_snils" name="number_snils" 
+                           value="{{ snils.number_snils|default:'' }}" 
+                           pattern="\d{11}" title="СНИЛС должен содержать 11 цифр">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="snils_get_date" class="form-label">Дата получения СНИЛС</label>
+                    <input type="date" class="form-control" id="snils_get_date" name="snils_get_date" 
+                           value="{{ snils.get_date|date:'Y-m-d'|default:'' }}">
+                </div>
+                
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    <a href="{% url 'admin_panel:customer_detail' customer.customer_id %}" class="btn btn-secondary">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

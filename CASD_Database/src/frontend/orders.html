@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASD - Поиск заказов</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/orders.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pagination button {
+            padding: 8px 16px;
+            border: 2px solid var(--driver-primary);
+            background: white;
+            color: var(--driver-primary);
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .pagination button.active {
+            background: var(--driver-primary);
+            color: white;
+        }
+
+        .pagination button:disabled {
+            border-color: #ccc;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--driver-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <h3 id="driverName">Загрузка...</h3>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li>
+                    <i class="fas fa-user"></i> Профиль
+                </li>
+                <li>
+                    <i class="fas fa-box"></i> Мои грузы
+                </li>
+                <li class="active">
+                    <i class="fas fa-search"></i> Поиск заказов
+                </li>
+            </ul>
+        </nav>
+        <button id="logoutBtn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+        </button>
+    </div>
+
+    <div class="main-content">
+        <h1>Доступные заказы</h1>
+        <div id="ordersContainer" class="orders-container">
+            <!-- Здесь будут карточки заказов -->
+        </div>
+        <div class="pagination" id="pagination">
+            <!-- Здесь будут кнопки пагинации -->
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="js/orders.js"></script>
+</body>
+</html> 

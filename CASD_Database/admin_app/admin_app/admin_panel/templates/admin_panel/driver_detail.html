@@ -1,0 +1,102 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Водитель {{ driver.name }} - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-user"></i> Информация о водителе
+                    </h3>
+                    <div class="card-tools">
+                        <a href="{% url 'admin_panel:driver_edit' driver.driver_id %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </a>
+                        <a href="{% url 'admin_panel:driver_delete' driver.driver_id %}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Удалить
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 200px;">ФИО</th>
+                                    <td>
+                                        {% if driver.last_name %}
+                                            {{ driver.last_name }} 
+                                        {% endif %}
+                                        {{ driver.name }} {{ driver.mid_name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Дата регистрации</th>
+                                    <td>{{ driver.date_register|date:"d.m.Y H:i" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Транспорт</th>
+                                    <td>
+                                        {% if driver.car %}
+                                            {{ driver.car.car_name }} ({{ driver.car.number_car }})
+                                        {% else %}
+                                            Не назначен
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 200px;">Паспорт</th>
+                                    <td>
+                                        {% if driver.documents and driver.documents.number_passport %}
+                                            {{ driver.documents.number_passport }}
+                                        {% else %}
+                                            Не указан
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>ИНН</th>
+                                    <td>
+                                        {% if driver.documents and driver.documents.number_inn %}
+                                            {{ driver.documents.number_inn }}
+                                        {% else %}
+                                            Не указан
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>СНИЛС</th>
+                                    <td>
+                                        {% if driver.documents and driver.documents.number_snils %}
+                                            {{ driver.documents.number_snils }}
+                                        {% else %}
+                                            Не указан
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Водительское удостоверение</th>
+                                    <td>
+                                        {% if driver.documents and driver.documents.number_driverlicense %}
+                                            {{ driver.documents.number_driverlicense }}
+                                        {% else %}
+                                            Не указано
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

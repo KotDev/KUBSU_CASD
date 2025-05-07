@@ -1,0 +1,116 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Заказ #{{ order.puty_list_id }} - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-truck"></i> Информация о заказе #{{ order.puty_list_id }}
+                    </h3>
+                    <div class="card-tools">
+                        <a href="{% url 'admin_panel:order_edit' order.puty_list_id %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </a>
+                        <a href="{% url 'admin_panel:order_delete' order.puty_list_id %}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i> Удалить
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 200px;">Статус</th>
+                                    <td>
+                                        <span class="badge {% if order.status == 'Не доставлен' %}bg-warning
+                                                      {% elif order.status == 'В пути' %}bg-info
+                                                      {% elif order.status == 'Доставлен' %}bg-success
+                                                      {% else %}bg-danger{% endif %}">
+                                            {{ order.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Дата отправления</th>
+                                    <td>{{ order.date_sending|date:"d.m.Y H:i" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Дата прибытия</th>
+                                    <td>{{ order.date_arrival|date:"d.m.Y H:i" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Расстояние</th>
+                                    <td>{{ order.all_km }} км</td>
+                                </tr>
+                                <tr>
+                                    <th>Стоимость</th>
+                                    <td>{{ order.all_price }} ₽</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th style="width: 200px;">Груз</th>
+                                    <td>
+                                        {% if order.cargo %}
+                                            {{ order.cargo.cargo_name }}
+                                        {% else %}
+                                            Не указан
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Заказчик</th>
+                                    <td>
+                                        {% if order.customer %}
+                                            {{ order.customer.name_company }}
+                                        {% else %}
+                                            Не указан
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Водитель</th>
+                                    <td>
+                                        {% if order.driver %}
+                                            {{ order.driver.name }} {{ order.driver.mid_name }}
+                                        {% else %}
+                                            Не назначен
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Город отправления</th>
+                                    <td>
+                                        {% if order.send_city %}
+                                            {{ order.send_city.city_name }}
+                                        {% else %}
+                                            Не указан
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Город назначения</th>
+                                    <td>
+                                        {% if order.arrival_city %}
+                                            {{ order.arrival_city.city_name }}
+                                        {% else %}
+                                            Не указан
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,15 @@
+meta {
+  name: get active putylist
+  type: http
+  seq: 27
+}
+
+get {
+  url: http://0.0.0.0:8000/api/puty-list/customer/
+  body: none
+  auth: inherit
+}
+
+headers {
+  customer_id: 2
+}

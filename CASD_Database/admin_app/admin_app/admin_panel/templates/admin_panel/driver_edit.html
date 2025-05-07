@@ -1,0 +1,188 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Редактирование водителя - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-edit"></i> Редактирование водителя
+                    </h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Личная информация</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="last_name" class="form-label">Фамилия</label>
+                                            <input type="text" class="form-control" id="last_name" name="last_name" 
+                                                   value="{{ driver.last_name|default:'' }}" required>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, укажите фамилию
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Имя</label>
+                                            <input type="text" class="form-control" id="name" name="name" 
+                                                   value="{{ driver.name|default:'' }}" required>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, укажите имя
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="mid_name" class="form-label">Отчество</label>
+                                            <input type="text" class="form-control" id="mid_name" name="mid_name" 
+                                                   value="{{ driver.mid_name|default:'' }}" required>
+                                            <div class="invalid-feedback">
+                                                Пожалуйста, укажите отчество
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="car" class="form-label">Транспортное средство</label>
+                                            <select class="form-select" id="car" name="car">
+                                                <option value="">Не назначено</option>
+                                                {% for car in cars %}
+                                                <option value="{{ car.car_id }}" {% if driver.car and driver.car.car_id == car.car_id %}selected{% endif %}>
+                                                    {{ car.car_name }} ({{ car.number_car }})
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Документы</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="mb-3">Паспорт</h5>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="serial_passport" class="form-label">Серия паспорта</label>
+                                                <input type="text" class="form-control" id="serial_passport" name="serial_passport" 
+                                                       value="{{ passport.serial_passport|default:'' }}" required>
+                                                <div class="invalid-feedback">
+                                                    Пожалуйста, укажите серию паспорта
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="number_passport" class="form-label">Номер паспорта</label>
+                                                <input type="text" class="form-control" id="number_passport" name="number_passport" 
+                                                       value="{{ passport.number_passport|default:'' }}" required>
+                                                <div class="invalid-feedback">
+                                                    Пожалуйста, укажите номер паспорта
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="passport_get_date" class="form-label">Дата выдачи</label>
+                                                <input type="date" class="form-control" id="passport_get_date" name="passport_get_date" 
+                                                       value="{{ passport.get_date|date:'Y-m-d'|default:'' }}" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="passport_birthday" class="form-label">Дата рождения</label>
+                                                <input type="date" class="form-control" id="passport_birthday" name="passport_birthday" 
+                                                       value="{{ passport.birthday|date:'Y-m-d'|default:'' }}" required>
+                                            </div>
+                                        </div>
+
+                                        <h5 class="mb-3">Водительское удостоверение</h5>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="seria_driverlicense" class="form-label">Серия</label>
+                                                <input type="text" class="form-control" id="seria_driverlicense" name="seria_driverlicense" 
+                                                       value="{{ driver_license.seria_driverlicense|default:'' }}" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="number_driverlicense" class="form-label">Номер</label>
+                                                <input type="text" class="form-control" id="number_driverlicense" name="number_driverlicense" 
+                                                       value="{{ driver_license.number_driverlicense|default:'' }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="driverlicense_get_date" class="form-label">Дата выдачи</label>
+                                            <input type="date" class="form-control" id="driverlicense_get_date" name="driverlicense_get_date" 
+                                                   value="{{ driver_license.get_date|date:'Y-m-d'|default:'' }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Категории</label>
+                                            <div class="row">
+                                                {% for category in categories %}
+                                                <div class="col-md-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" 
+                                                               name="license_categories" value="{{ category.category_id }}"
+                                                               id="category_{{ category.category_id }}"
+                                                               {% if category.category_id in existing_categories %}checked{% endif %}>
+                                                        <label class="form-check-label" for="category_{{ category.category_id }}">
+                                                            {{ category.category_name }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Сохранить изменения
+                                </button>
+                                <a href="{% url 'admin_panel:driver_detail' driver.driver_id %}" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i> Отмена
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Валидация формы
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %} 

@@ -1,0 +1,304 @@
+:root {
+    --primary-color: #2ecc71;
+    --primary-dark: #27ae60;
+    --primary-light: #a9dfbf;
+    --secondary-color: #f1f1f1;
+    --text-color: #2c3e50;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --background-color: #f8f9fa;
+    --card-background: #ffffff;
+}
+
+/* Общие стили */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Хедер */
+#header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    box-shadow: var(--box-shadow);
+    padding: 0 20px;
+}
+
+#branding h1 {
+    color: white;
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+#branding h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Навигация */
+#nav-sidebar {
+    background-color: var(--card-background);
+    border-right: 1px solid var(--primary-light);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    margin: 10px;
+    padding: 10px;
+}
+
+#nav-sidebar .current-model {
+    background-color: var(--primary-light);
+    border-radius: var(--border-radius);
+}
+
+#nav-sidebar a:link, #nav-sidebar a:visited {
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    margin: 2px 0;
+    display: block;
+}
+
+#nav-sidebar a:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+/* Кнопки */
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 8px 16px;
+    font-weight: 500;
+    box-shadow: var(--box-shadow);
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, a.button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Формы */
+.module {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 12px 15px;
+    font-weight: 500;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.form-row {
+    background-color: var(--card-background);
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: var(--text-color);
+}
+
+.form-row:last-child {
+    border-bottom: none;
+}
+
+/* Таблицы */
+thead th {
+    background-color: var(--primary-light);
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 12px;
+}
+
+tr:nth-child(odd) {
+    background-color: var(--card-background);
+}
+
+tr:nth-child(even) {
+    background-color: var(--background-color);
+}
+
+td, th {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    color: var(--text-color);
+}
+
+/* Уведомления */
+.messagelist .success {
+    background-color: var(--success-color);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: 12px;
+    margin: 10px 0;
+}
+
+.messagelist .error {
+    background-color: var(--error-color);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: 12px;
+    margin: 10px 0;
+}
+
+/* Поиск */
+#searchbar {
+    border: 1px solid var(--primary-light);
+    border-radius: var(--border-radius);
+    padding: 8px 12px;
+    width: 100%;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    background-color: var(--card-background);
+}
+
+#searchbar:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-light);
+    outline: none;
+}
+
+/* Фильтры */
+.selector h2 {
+    background-color: var(--primary-light);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Пагинация */
+.paginator {
+    margin: 20px 0;
+}
+
+.paginator a:link, .paginator a:visited {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    margin: 0 5px;
+}
+
+.paginator a:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Модальные окна */
+.popup {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.popup h2 {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 15px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    margin: -20px -20px 20px -20px;
+}
+
+/* Иконки */
+.icon {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+/* Хлебные крошки */
+.breadcrumbs {
+    background-color: var(--primary-light);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.breadcrumbs a {
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+/* Кастомные стили для списков */
+.object-tools {
+    margin-bottom: 15px;
+}
+
+.object-tools a:link, .object-tools a:visited {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.object-tools a:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Стили для чекбоксов и радио-кнопок */
+input[type="checkbox"], input[type="radio"] {
+    accent-color: var(--primary-color);
+}
+
+/* Стили для выпадающих списков */
+select {
+    border: 1px solid var(--primary-light);
+    border-radius: var(--border-radius);
+    padding: 8px;
+    width: 100%;
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-light);
+    outline: none;
+}
+
+/* Анимации */
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    transition: all 0.3s ease;
+}
+
+#nav-sidebar a {
+    transition: all 0.3s ease;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    #header {
+        padding: 10px;
+    }
+    
+    #nav-sidebar {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .module {
+        margin: 10px 0;
+    }
+    
+    .object-tools {
+        text-align: center;
+    }
+    
+    .object-tools a {
+        display: block;
+        margin: 5px 0;
+    }
+} 

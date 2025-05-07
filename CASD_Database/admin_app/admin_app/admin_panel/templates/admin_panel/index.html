@@ -1,0 +1,130 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Главная - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-clipboard-list me-2"></i>Заказы
+                </h5>
+                <p class="card-text">{{ orders_count }} активных заказов</p>
+                <a href="{% url 'admin_panel:orders' %}" class="btn btn-light">
+                    <i class="fas fa-arrow-right me-1"></i>Перейти
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-user-tie me-2"></i>Водители
+                </h5>
+                <p class="card-text">{{ drivers_count }} водителей</p>
+                <a href="{% url 'admin_panel:drivers' %}" class="btn btn-light">
+                    <i class="fas fa-arrow-right me-1"></i>Перейти
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-building me-2"></i>Заказчики
+                </h5>
+                <p class="card-text">{{ customers_count }} заказчиков</p>
+                <a href="{% url 'admin_panel:customers' %}" class="btn btn-light">
+                    <i class="fas fa-arrow-right me-1"></i>Перейти
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-truck me-2"></i>Транспорт
+                </h5>
+                <p class="card-text">{{ vehicles_count }} единиц транспорта</p>
+                <a href="{% url 'admin_panel:vehicles' %}" class="btn btn-light">
+                    <i class="fas fa-arrow-right me-1"></i>Перейти
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-chart-line me-2"></i>Статистика
+                </h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="driversChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // График заказов
+    const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+    new Chart(ordersCtx, {
+        type: 'line',
+        data: {
+            labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+            datasets: [{
+                label: 'Заказы',
+                data: [12, 19, 3, 5, 2, 3],
+                borderColor: '#e74c3c',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    // График водителей
+    const driversCtx = document.getElementById('driversChart').getContext('2d');
+    new Chart(driversCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+            datasets: [{
+                label: 'Водители',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: '#27ae60'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+</script>
+{% endblock %} 

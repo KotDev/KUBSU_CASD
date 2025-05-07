@@ -1,0 +1,889 @@
+{
+  "info": {
+    "name": "cargo bruno",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "auth customer",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/auth/authorize",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "authorize"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 100,\n  \"role\": \"customer\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "auth driver",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/auth/authorize",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "authorize"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": 136,\n  \"role\": \"driver\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "create car",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/driver-car/create",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "driver-car",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "create category for driverlicense",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/driver-license/add-category",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "driver-license",
+            "add-category"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"category_id\": 2,\n  \"number_driverlicense\": \"2222\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "create customer",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"register_driver\": null,\n  \"register_customer\": {\n    \"name_company\": \"ООО Ромашка\"\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "create driver",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"register_driver\": {\n    \"name\": \"Иван\",\n    \"mid_name\": \"Иванович\",\n    \"last_name\": \"Иванов\"\n  },\n  \"register_customer\": null\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "create driverlicense",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/driver-license/create",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "driver-license",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"number_driverlicense\": \"2222\",\n  \"seria_driverlicense\": \"333333\",\n  \"get_date\": \"2020-01-01\",\n  \"document_id\": 956\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "create inn",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/customer/me/document/inn/create",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "me",
+            "document",
+            "inn",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "create snils",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/customer/me/document/snils/create",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "me",
+            "document",
+            "snils",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"number_snils\": \"50158899491\",\n  \"get_date\": \"2025-04-20\",\n  \"document_id\": 958\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "delete category for driver license",
+      "event": [],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "category_id",
+            "value": "1",
+            "disabled": false,
+            "type": "default"
+          },
+          {
+            "key": "number_driverlicense",
+            "value": "2222",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/driver-license/delete-category",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "driver-license",
+            "delete-category"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get car info",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "car_id",
+            "value": "1",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/driver-car/get",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "driver-car",
+            "get"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get documents customer",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "document_id",
+            "value": "958",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/customer/me/documents/",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "me",
+            "documents",
+            ""
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get documents",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "document_id",
+            "value": "900",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/documents",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "documents"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get driver license",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "number_driverlicense",
+            "value": "2222",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/driver-license",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "driver-license"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get info profile driver",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "driver_id",
+            "value": "136",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            ""
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get inn",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "number_inn",
+            "value": "3918492466",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/customer/me/document/inn",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "me",
+            "document",
+            "inn"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get me customer",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "customer_id",
+            "value": "100",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/customer/me",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "me"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get passport driver",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "number_passport",
+            "value": "002704",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/passport",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "passport"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "get snils",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "number_snils",
+            "value": "50158899491",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/customer/me/document/snils",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "customer",
+            "me",
+            "document",
+            "snils"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "passport create",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/passport/create",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "passport",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "update car",
+      "event": [],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/driver-car/update",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "driver-car",
+            "update"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "update driverlicense",
+      "event": [],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "number_driverlicense",
+            "value": "2222",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/driver-license",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "driver-license"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"number_driverlicense\": \"2222\",\n  \"seria_driverlicense\": \"697625\",\n  \"get_date\": \"2025-04-21\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "update passport",
+      "event": [],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "number_passport",
+            "value": "123456",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://0.0.0.0:8000/api/drivers/me/document/passport",
+          "protocol": "http",
+          "host": [
+            "0",
+            "0",
+            "0",
+            "0:8000"
+          ],
+          "path": [
+            "api",
+            "drivers",
+            "me",
+            "document",
+            "passport"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"serial_passport\": \"3938\",\n  \"get_date\": \"2025-04-21\",\n  \"birthday\": \"2025-04-21\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "variable": []
+}

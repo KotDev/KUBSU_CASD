@@ -1,0 +1,64 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}{% if vehicle %}Редактирование транспорта{% else %}Добавление транспорта{% endif %} - Админ-панель{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{% if vehicle %}Редактирование транспорта{% else %}Добавление транспорта{% endif %}</h1>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Основная информация</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="car_name">Название</label>
+                            <input type="text" class="form-control" id="car_name" name="car_name" 
+                                   value="{{ vehicle.car_name|default:'' }}" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="number_car">Номер</label>
+                            <input type="text" class="form-control" id="number_car" name="number_car" 
+                                   value="{{ vehicle.number_car|default:'' }}" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="serial_number_car">Серийный номер</label>
+                            <input type="number" class="form-control" id="serial_number_car" name="serial_number_car" 
+                                   value="{{ vehicle.serial_number_car|default:'' }}" required>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> {% if vehicle %}Сохранить{% else %}Создать{% endif %}
+                            </button>
+                            <a href="{% if vehicle %}{% url 'admin_panel:vehicle_detail' vehicle.car_id %}{% else %}{% url 'admin_panel:vehicles' %}{% endif %}" 
+                               class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Отмена
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

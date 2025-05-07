@@ -1,0 +1,197 @@
+/* Анимации для документов */
+.documents-container {
+    animation: slideUp 0.5s ease-out;
+}
+
+.menu {
+    animation: slideRight 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Стили для модальных окон */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Стили для документов */
+.document-card {
+    animation: slideUp 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.document-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.document-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.document-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* Применение анимаций */
+.animated-container {
+    opacity: 0;
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+.animated-menu {
+    opacity: 0;
+    animation: slideRight 0.5s ease-out forwards;
+}
+
+.document-card {
+    opacity: 0;
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Задержки для документов */
+.document-card:nth-child(1) { animation-delay: 0.1s; }
+.document-card:nth-child(2) { animation-delay: 0.2s; }
+.document-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* Анимация для модальных окон */
+.modal {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.modal-content {
+    transform: scale(0.7);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Стили для группы кнопок */
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Общие стили для всех кнопок действий */
+.action-btn {
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin: 5px 0;
+}
+
+/* Стили для кнопки "Сохранить" */
+.submit-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+/* Стили для кнопки "Отмена" */
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    width: 100% !important; /* Принудительно устанавливаем ширину */
+    display: block !important; /* Обеспечиваем блочное отображение */
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+}
+
+/* Стили для кнопки "Изменить" */
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+    margin-top: 15px;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для формы */
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#editFormContainer {
+    width: 100%;
+}
+
+#editDocumentForm {
+    width: 100%;
+}
+
+#editFormFields {
+    width: 100%;
+}
+
+.document-details {
+    padding: 15px;
+} 
